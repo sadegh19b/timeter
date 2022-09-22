@@ -1,0 +1,13 @@
+@layer base {
+    [x-cloak] {
+        display: none;
+    }
+}
+
+@layer components {
+
+}
+
+@layer utilities {
+
+}
