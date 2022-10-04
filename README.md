@@ -42,9 +42,23 @@ laravelsail/php81-composer:latest \
 composer install --ignore-platform-reqs
 ```
 
-Now, switch to project directory and run `sail up` command to run the docker.
+Now, switch to the project directory and run `sail up` command.
 
 ```shell
 cd timeter
 ./vendor/bin/sail up
+```
+
+## Testing
+
+Run tests of the project by following the below command:
+
+```shell
+php artisan test
+```
+
+Run tests in docker:
+
+```shell
+./vendor/bin/sail artisan test
 ```
