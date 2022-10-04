@@ -45,6 +45,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the version of your application. This value is used when the
+    | framework needs to place the application's version in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'version' => env('APP_VERSION', '1.0.0'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
@@ -69,7 +82,22 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application RTL Direction Configuration
+    |--------------------------------------------------------------------------
+    |
+    | The application direction determines the default ltr direction that
+    | will be used by the theme layout for elements direction.
+    | If current locale is set a rtl language,
+    | check in list of rtl languages and rtl configure is true.
+    | reference: https://meta.wikimedia.org/wiki/Template:List_of_language_names_ordered_by_code
+    |
+    */
+
+    'rtl' => in_array(env('APP_LANG', 'en'), ['ar', 'arc', 'ckb', 'dv', 'fa', 'ha', 'he', 'khw', 'ks', 'ps', 'sd', 'ur', 'uz_AF', 'yi']),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +110,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LANG', 'en'),
 
     /*
     |--------------------------------------------------------------------------
