@@ -5,6 +5,9 @@ import sveltePreprocess from 'svelte-preprocess';
 import path from 'path';
 
 export default defineConfig({
+    server: {
+        //port: 1000
+    },
     plugins: [
         laravel({
             input: ['resources/js/app.js'],
@@ -26,8 +29,9 @@ export default defineConfig({
         alias: {
             "~": path.resolve(__dirname, './resources'),
             "~js": path.resolve(__dirname, './resources/js'),
-            "~css": path.resolve(__dirname, './resources/css'),
+            "~style": path.resolve(__dirname, './resources/styles'),
             "~page": path.resolve(__dirname, './resources/svelte/pages'),
+            "~partial": path.resolve(__dirname, './resources/svelte/partials'),
             "~component": path.resolve(__dirname, './resources/svelte/components'),
             "~store": path.resolve(__dirname, './resources/svelte/stores')
         },

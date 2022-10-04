@@ -1,0 +1,20 @@
+@layer components {
+    .modal-overlay {
+        @apply fixed top-0 left-0 w-full h-full bg-brand-primary-950/70;
+    }
+    .modal-container {
+        @apply flex justify-center items-center fixed inset-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto py-8;
+
+        .modal-content {
+            @apply relative bg-white rounded-lg dark:bg-brand-primary-900 p-4 w-full m-auto max-w-sm md:max-w-lg;
+
+            .modal-close-btn {
+                @apply absolute top-2 right-2 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white;
+            }
+
+            .modal-title {
+                @apply text-center mb-4 text-xl font-semibold dark:text-brand-primary-50;
+            }
+        }
+    }
+}

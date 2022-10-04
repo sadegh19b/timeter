@@ -1,5 +1,6 @@
 import '~js/bootstrap';
-import '~css/app.css';
+import '~js/trans';
+import '~style/app.scss';
 
 import { createInertiaApp } from '@inertiajs/inertia-svelte';
 import { resolvePageComponent } from '~js/resolve-page-component';

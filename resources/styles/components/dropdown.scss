@@ -1,0 +1,41 @@
+@layer components {
+    .dropdown {
+        @apply flex relative;
+
+        .dropdown-menu {
+            @apply absolute flex flex-col h-fit p-2 -top-1 bottom-0 rounded-lg bg-brand-primary-35 dark:bg-brand-primary-900;
+
+            &.right {
+                @apply left-6;
+
+                &:before {
+                    @apply -left-2 border-r-8 border-r-brand-primary-35 dark:border-r-brand-primary-900;
+                }
+            }
+
+            &.left {
+                @apply right-6;
+
+                &:before {
+                    @apply -right-2 border-l-8 border-l-brand-primary-35 dark:border-l-brand-primary-900;
+                }
+            }
+
+            &:before {
+                @apply content-[''] absolute top-2 h-0 w-0 border-y-8 border-y-transparent;
+            }
+
+            .dropdown-item {
+                @apply flex px-4 py-2 rounded-lg transition-colors duration-500 hover:bg-brand-primary-100/50 dark:hover:bg-brand-primary/20;
+
+                svg {
+                    @apply ml-3;
+                }
+            }
+        }
+    }
+
+    html[dir="ltr"] .dropdown .dropdown-menu .dropdown-item svg {
+        @apply mr-3 ml-0;
+    }
+}

@@ -12,6 +12,8 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "postcss-import": "^14.1.0",
+        "sass": "^1.55.0",
+        "svelte-outside-click": "^1.1.1",
         "svelte-preprocess": "^4.10.7",
         "vite": "^3.0.0"
     },

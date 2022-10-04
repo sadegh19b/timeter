@@ -1,0 +1,23 @@
+@layer base {
+    [x-cloak] {
+        display: none;
+    }
+
+    body {
+        @apply min-h-screen text-brand-primary-900 dark:bg-brand-primary-950 dark:text-brand-primary-100;
+    }
+
+    footer {
+        @apply absolute left-2 bottom-1 text-sm text-brand-primary-35 dark:text-brand-primary-700;
+    }
+}
+
+@layer components {
+
+}
+
+@layer utilities {
+    html[dir='rtl'] [class*="space-x-"] {
+        @apply space-x-reverse;
+    }
+}

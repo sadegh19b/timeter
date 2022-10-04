@@ -1,0 +1,88 @@
+@layer components {
+    .btn-base {
+        @apply inline-flex items-center py-2 px-3 text-sm font-semibold text-center rounded-lg transition-all duration-500 focus:ring-0 focus:outline-none;
+    }
+    .btn-base-solid {
+        @apply btn-base text-white;
+    }
+    .btn-base-outline {
+        @apply btn-base border-2 hover:text-white dark:hover:text-white;
+    }
+    .btn-base-duotone {
+        @apply btn-base text-white bg-gradient-to-br bg-size-200 bg-pos-0 hover:bg-pos-100;
+    }
+
+    .btn-dark {
+        @apply btn-base-solid bg-gray-800 hover:bg-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:border dark:border-gray-600;
+    }
+    .btn-light {
+        @apply btn-base-solid text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600;
+    }
+    .btn-blue {
+        @apply btn-base-solid bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700;
+    }
+    .btn-green {
+        @apply btn-base-solid bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700;
+    }
+    .btn-red {
+        @apply btn-base-solid bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700;
+    }
+    .btn-yellow {
+        @apply btn-base-solid bg-yellow-400 hover:bg-yellow-500;
+    }
+    .btn-purple {
+        @apply btn-base-solid bg-purple-700 hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700;
+    }
+
+    .btn-outline-dark {
+        @apply btn-base-outline text-gray-900 border-gray-800 hover:bg-gray-900 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600
+    }
+    .btn-outline-blue {
+        @apply btn-base-outline text-blue-700 border-blue-700 hover:bg-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-600;
+    }
+    .btn-outline-green {
+        @apply btn-base-outline text-green-700 border-green-700 hover:bg-green-800 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600;
+    }
+    .btn-outline-red {
+        @apply btn-base-outline text-red-700 hover:text-white border-red-700 hover:bg-red-800 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600;
+    }
+    .btn-outline-yellow {
+        @apply btn-base-outline text-yellow-400 hover:text-white border-yellow-400 hover:bg-yellow-500 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400;
+    }
+    .btn-outline-purple {
+        @apply btn-base-outline text-purple-700 hover:text-white border-purple-700 hover:bg-purple-800 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500;
+    }
+
+    .btn-duotone-purple-to-blue {
+        @apply btn-base-duotone from-purple-600 via-blue-500 to-purple-600;
+    }
+    .btn-duotone-cyan-to-blue {
+        @apply btn-base-duotone from-cyan-500 via-blue-500 to-cyan-500 bg-gradient-to-r;
+    }
+    .btn-duotone-green-to-blue {
+        @apply btn-base-duotone from-green-400 via-blue-500 to-green-400;
+    }
+    .btn-duotone-purple-to-pink {
+        @apply btn-base-duotone from-purple-500 via-pink-500 to-purple-500 bg-gradient-to-r;
+    }
+    .btn-duotone-pink-to-orange {
+        @apply btn-base-duotone from-pink-500 via-orange-400 to-pink-500;
+    }
+    .btn-duotone-teal-to-lime {
+        @apply btn-base-duotone text-gray-900 from-teal-200 via-lime-200 to-teal-200 bg-gradient-to-r;
+    }
+    .btn-duotone-red-to-yellow {
+        @apply btn-base-duotone text-gray-900 from-red-300 via-yellow-200 to-red-300 bg-gradient-to-r;
+    }
+
+    [class*="btn-"] svg {
+        @apply mr-1 -ml-1;
+    }
+    html[dir='rtl'] [class*="btn-"] svg {
+        @apply ml-1 -mr-1;
+    }
+
+    /*[class*="btn-"]:disabled {
+        @apply bg-gray-500 cursor-not-allowed;
+    }*/
+}

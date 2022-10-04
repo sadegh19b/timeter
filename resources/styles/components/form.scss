@@ -1,0 +1,25 @@
+@layer components {
+    .form-group {
+        .form-label {
+            @apply block mb-2 text-sm font-semibold cursor-pointer;
+        }
+        .form-input {
+            @apply bg-brand-primary-50 border border-brand-primary-100 placeholder-brand-primary-200 text-sm rounded-lg block w-full p-2.5 outline-0 focus:ring-2 focus:ring-brand-primary-35 focus:dark:ring-brand-primary-700 dark:bg-brand-primary-950 dark:border-brand-primary-800 dark:placeholder-brand-primary-600;
+        }
+        .form-hint {
+            @apply text-gray-500 text-sm mt-2;
+        }
+        .form-error {
+            @apply mt-2 text-sm text-red-600 dark:text-red-500;
+        }
+
+        &.invalid {
+            .form-label {
+                @apply text-red-700;
+            }
+            .form-input {
+                @apply border-red-500 placeholder-red-700 focus:ring-red-300 focus:dark:ring-red-900 dark:placeholder-red-900 dark:border-red-500;
+            }
+        }
+    }
+}
