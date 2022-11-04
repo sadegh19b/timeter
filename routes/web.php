@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,14 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
+// Project Routes
 Route::get('/', [ProjectController::class, 'index'])->name('home');
-Route::group(['prefix' => 'projects', 'as' => 'projects.'], function () {
-    Route::delete('permanent-delete/{id}', [ProjectController::class, 'destroy_permanent'])->name('destroy_permanent');
-    Route::get('restore/{id}', [ProjectController::class, 'restore'])->name('restore');
-});
+Route::get('projects/restore/{project_id}', [ProjectController::class, 'restore'])->name('projects.restore');
+Route::delete('projects/permanent-delete/{project_id}', [ProjectController::class, 'destroy_permanent'])->name('projects.destroy_permanent');
 Route::resource('projects', ProjectController::class)->except(['index', 'create', 'edit']);
+
+// Time Routes
+Route::post('{project}/times', [TimeController::class, 'store'])->name('times.store');
+Route::get('times/restore/{time_id}', [TimeController::class, 'restore'])->name('times.restore');
+Route::delete('times/permanent-delete/{time_id}', [TimeController::class, 'destroy_permanent'])->name('times.destroy_permanent');
+Route::resource('times', TimeController::class)->only(['update', 'destroy']);
