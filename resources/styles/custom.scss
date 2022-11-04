@@ -13,7 +13,14 @@
 }
 
 @layer components {
-
+    .dark .sdt-calendar-colors {
+        --sdt-color: #BDCCDA !important;
+        --sdt-bg-main: #001325 !important;
+        --sdt-btn-bg-hover: #001E3A !important;
+        --sdt-btn-header-bg-hover: #001E3A !important;
+        --sdt-clock-bg: #001E3A !important;
+        --sdt-shadow: rgb(0 38 72) !important;
+    }
 }
 
 @layer utilities {
