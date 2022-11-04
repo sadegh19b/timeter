@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Imanghafoori\EloquentMockery\MockableModel;
 
 class Project extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, MockableModel, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -17,8 +18,8 @@ class Project extends Model
         'pay_per_hour'
     ];
 
-    public function entries(): HasMany
+    public function times(): HasMany
     {
-        return $this->hasMany(Entry::class);
+        return $this->hasMany(Time::class);
     }
 }

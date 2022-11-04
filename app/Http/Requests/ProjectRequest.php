@@ -15,17 +15,19 @@ class ProjectRequest extends FormRequest
         ];
     }
 
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function attributes(): array
     {
         return [
             'name' => __('Project Name'),
             'description' => __('Project Description'),
             'pay_per_hour' => __('Pay Per Hour')
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'pay_per_hour.max' => __('Pay Per Hour can be a maximum of one hundred million.'),
         ];
     }
 
@@ -42,5 +44,10 @@ class ProjectRequest extends FormRequest
                 'pay_per_hour' => str_replace(',', '', $this->request->get('pay_per_hour'))
             ]);
         }
+    }
+
+    public function authorize(): bool
+    {
+        return true;
     }
 }
