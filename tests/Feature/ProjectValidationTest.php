@@ -6,11 +6,12 @@ use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\InteractsWithValidation;
 use Tests\TestCase;
 
 class ProjectValidationTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, InteractsWithValidation;
 
     /*
      * 'name' => ['required', 'string', 'min:2', 'max:120'],
@@ -31,12 +32,12 @@ class ProjectValidationTest extends TestCase
     /** @test */
     public function validation_passes_with_correct_data(): void
     {
-        $this->assertPass($this->requestData, $this->formRequest);
+        $this->assertPasses($this->requestData, $this->formRequest);
 
         $this->requestData['description'] = null;
         $this->requestData['pay_per_hour'] = null;
 
-        $this->assertPass($this->requestData, $this->formRequest);
+        $this->assertPasses($this->requestData, $this->formRequest);
     }
 
     /** @test */
