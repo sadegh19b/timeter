@@ -3,6 +3,7 @@
     import { format, numberFormat } from '~js/format';
     import { modalStore } from '~store/modal-store';
     import ModalForm from '~component/modal/modal-form';
+    import Toggle from '~component/toggle';
 
     export let type; // create or update
 
@@ -13,9 +14,12 @@
         pay_per_hour: (type === 'update')
             ? $modalStore.model.pay_per_hour
             : null,
+        use_persian_datetime_in_statistic: (type === 'update')
+            ? $modalStore.model.use_persian_datetime_in_statistic
+            : false,
         description: (type === 'update')
             ? $modalStore.model.description
-            : null,
+            : null
     });
 </script>
 
@@ -41,4 +45,12 @@
             <div class="form-error">{$form.errors.description}</div>
         {/if}
     </div>
+    {#if _app.lang === 'fa'}
+        <div class="form-group" class:invalid={$form.errors.use_persian_datetime_in_statistic}>
+            <Toggle type="primary" bind:value={$form.use_persian_datetime_in_statistic} label="برای محسابه زمان های صرف شده در پروژه از تاریخ شمسی استفاده شود."/>
+            {#if $form.errors.use_persian_datetime_in_statistic}
+                <div class="form-error">{$form.errors.use_persian_datetime_in_statistic}</div>
+            {/if}
+        </div>
+    {/if}
 </ModalForm>

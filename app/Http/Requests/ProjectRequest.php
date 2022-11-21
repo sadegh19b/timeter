@@ -9,9 +9,10 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:2', 'max:120'],
-            'description' => ['nullable', 'string', 'min:5'],
-            'pay_per_hour' => ['nullable', 'numeric', 'min:1', 'max:100000000']
+            'name' => ['required', 'min:2', 'max:120'],
+            'description' => ['nullable', 'min:5'],
+            'pay_per_hour' => ['nullable', 'numeric', 'min:1', 'max:100000000'],
+            'use_persian_datetime_in_statistic' => ['boolean']
         ];
     }
 
@@ -31,10 +32,9 @@ class ProjectRequest extends FormRequest
         ];
     }
 
-    protected function getValidatorInstance(): \Illuminate\Contracts\Validation\Validator
+    protected function prepareForValidation(): void
     {
         $this->cleanPayPerHour();
-        return parent::getValidatorInstance();
     }
 
     private function cleanPayPerHour(): void

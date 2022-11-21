@@ -50,6 +50,23 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseCount('times', 1);
     }
 
+    public function test_user_can_store_a_new_time_for_project_in_persian_date_format(): void
+    {
+        $project = Project::factory()->create();
+        $requestData = [
+            'start_at' => verta()->format('Y-m-d H:i'),
+            'end_at' => verta()->addHour()->format('Y-m-d H:i')
+        ];
+
+        $this->post(route('times.store', $project), $requestData)
+            ->assertOk();
+
+        $this->normalizeTime();
+
+        $this->assertDatabaseHas('times', $this->requestData);
+        $this->assertDatabaseCount('times', 1);
+    }
+
     public function test_user_can_update_a_time(): void
     {
         $time = Time::factory()->fulfil()->create();

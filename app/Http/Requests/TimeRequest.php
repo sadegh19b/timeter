@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Str;
 
 class TimeRequest extends FormRequest
 {
@@ -28,6 +29,28 @@ class TimeRequest extends FormRequest
             'start_at.date_format' => __('The :attribute must be in the correct date format. ex: 2022-01-01 22:00'),
             'end_at.date_format' => __('The :attribute must be in the correct date format. ex: 2022-01-01 22:00'),
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->convertPersianToGeorgianDatetime();
+    }
+
+    private function convertPersianToGeorgianDatetime(): void
+    {
+        if (config('app.locale') === 'fa') {
+            if (Str::startsWith($this->request->get('start_at'), '1')) {
+                $this->merge([
+                    'start_at' => persian_to_georgian_datetime($this->request->get('start_at'), 'Y-m-d H:i')
+                ]);
+            }
+
+            if (Str::startsWith($this->request->get('end_at'), '1')) {
+                $this->merge([
+                    'end_at' => persian_to_georgian_datetime($this->request->get('end_at'), 'Y-m-d H:i')
+                ]);
+            }
+        }
     }
 
     public function authorize(): bool

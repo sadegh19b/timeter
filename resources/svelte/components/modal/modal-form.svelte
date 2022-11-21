@@ -29,7 +29,7 @@
     <Modal title="{type === 'create' ? __('Create') : __('Edit')} {$modalStore.title}">
         <form class="space-y-6" on:submit|preventDefault={submit}>
             <slot/>
-            <button class="btn-blue w-full justify-center" type="submit" disabled={$form.processing}>
+            <button class="btn-primary w-full justify-center" type="submit" disabled={$form.processing}>
                 {#if $form.processing}
                     <Spinner/>
                     {__('Processing...')}

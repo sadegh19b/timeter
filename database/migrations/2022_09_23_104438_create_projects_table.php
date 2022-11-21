@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('name', '120');
             $table->text('description')->nullable();
             $table->unsignedInteger('pay_per_hour')->nullable();
+            $table->boolean('use_persian_datetime_in_statistic')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

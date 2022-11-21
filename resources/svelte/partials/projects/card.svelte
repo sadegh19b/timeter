@@ -37,11 +37,11 @@
     </div>
     <div class="card-footer">
         <div class="flex justify-center items-center space-x-6">
-            <button class="btn-blue" on:click={addTimeModal}>
+            <button class="btn-primary" on:click={addTimeModal}>
                 <Icon name="add-time"/>
                 {__('Add Time')}
             </button>
-            <button class="btn-green">
+            <button class="btn-success">
                 <Icon name="timer"/>
                 {__('Start Timer')}
             </button>

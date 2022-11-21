@@ -16,7 +16,7 @@ class ProjectControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->requestData = Project::factory()->make()->toArray();
+        $this->requestData = Project::factory()->fulfil()->make()->toArray();
     }
 
     public function test_user_can_store_a_new_project(): void
@@ -28,9 +28,33 @@ class ProjectControllerTest extends TestCase
         $this->assertDatabaseCount('projects', 1);
     }
 
+    public function test_user_can_store_a_new_project_without_description_and_pay_per_hour_filled(): void
+    {
+        $this->requestData['description'] = null;
+        $this->requestData['pay_per_hour'] = null;
+
+        $this->post(route('projects.store'), $this->requestData)
+            ->assertOk();
+
+        $this->assertDatabaseHas('projects', $this->requestData);
+        $this->assertDatabaseCount('projects', 1);
+    }
+
     public function test_user_can_update_a_project(): void
     {
         $project = Project::factory()->create();
+
+        $this->put(route('projects.update', $project), $this->requestData)
+            ->assertOk();
+
+        $this->assertDatabaseHas('projects', $this->requestData + ['id' => $project->id]);
+    }
+
+    public function test_user_can_update_a_project_without_description_and_pay_per_hour_filled(): void
+    {
+        $project = Project::factory()->create();
+        $this->requestData['description'] = null;
+        $this->requestData['pay_per_hour'] = null;
 
         $this->put(route('projects.update', $project), $this->requestData)
             ->assertOk();

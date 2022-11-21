@@ -1,0 +1,37 @@
+@layer components {
+    .toggle {
+        @apply relative w-11 h-6 bg-brand-primary-50 rounded-full peer-focus:ring-4 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:mt-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:bg-brand-primary-950 dark:border-brand-primary-800;
+
+        &.toggle-primary {
+            @apply peer-checked:bg-blue-600 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800;
+        }
+
+        &.toggle-danger {
+            @apply peer-checked:bg-red-600 peer-focus:ring-red-300 dark:peer-focus:ring-red-800;
+        }
+
+        &.toggle-success {
+            @apply peer-checked:bg-green-600 peer-focus:ring-green-300 dark:peer-focus:ring-green-800;
+        }
+
+        &.toggle-warning {
+            @apply peer-checked:bg-yellow-400 peer-focus:ring-yellow-300 dark:peer-focus:ring-yellow-800;
+        }
+
+        &.toggle-purple {
+            @apply peer-checked:bg-yellow-600 peer-focus:ring-yellow-300 dark:peer-focus:ring-yellow-800;
+        }
+
+        &.toggle-teal {
+            @apply peer-checked:bg-teal-600 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800;
+        }
+    }
+
+    .toggle-label {
+        @apply ml-3 text-sm font-medium text-gray-900 dark:text-gray-300;
+    }
+
+    html[dir='rtl'] .toggle-label {
+        @apply ml-0 mr-3;
+    }
+}

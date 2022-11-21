@@ -193,4 +193,141 @@ class TimeStatisticTest extends TestCase
         Project::stopFaking();
         Time::stopFaking();
     }
+
+    public function test_today_work_times_in_persian_datetime(): void
+    {
+        // Start Faking:
+        Project::fake();
+        Time::fake();
+
+        // Arrange:
+        /* @var \App\Models\Project $project */
+        $project = Project::factory()->usePersianDatetimeForStatistic()->create();
+        $project->times()->create([
+            'start_at' => today()->subDay()->hours(22),
+            'end_at' => today()->hours(1)
+        ]);
+        $project->times()->create([
+            'start_at' => today()->hours(9),
+            'end_at' => today()->hours(10)
+        ]);
+        $project->times()->create([
+            'start_at' => today()->hours(22),
+            'end_at' => today()->addDay()->hours(1)
+        ]);
+        $project->times()->create([
+            'start_at' => today()->subDay()->hours(10),
+            'end_at' => today()->addDay()->hours(10)
+        ]);
+
+        // Act:
+        $todayWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::TODAY);
+
+        // Assert:
+        $this->assertEquals('28:00', $todayWorkTime);
+
+        // Stop Faking:
+        Project::stopFaking();
+        Time::stopFaking();
+    }
+
+    public function test_this_week_work_times_in_persian_datetime(): void
+    {
+        // Start Faking:
+        Project::fake();
+        Time::fake();
+
+        // Arrange:
+        /* @var \App\Models\Project $project */
+        $project = Project::factory()->usePersianDatetimeForStatistic()->create();
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->startWeek())->subDay()->hours(22),
+            'end_at' => verta_to_carbon(verta()->startWeek())->hours(1)
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(today()->toJalali())->hours(9),
+            'end_at' => verta_to_carbon(today()->toJalali())->hours(10)
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->endWeek())->setTimeFromTimeString('22:00'),
+            'end_at' => verta_to_carbon(verta()->endWeek())->addDay()->setTimeFromTimeString('01:00')
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->startWeek())->subDay()->hours(10),
+            'end_at' => verta_to_carbon(verta()->endWeek())->addDay()->setTimeFromTimeString('10:00')
+        ]);
+
+        // Act:
+        $thisWeekWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::WEEK);
+
+        // Assert:
+        $this->assertEquals('172:00', $thisWeekWorkTime);
+
+        // Stop Faking:
+        Project::stopFaking();
+        Time::stopFaking();
+    }
+
+    public function test_this_month_work_times_in_persian_datetime(): void
+    {
+        // Start Faking:
+        Project::fake();
+        Time::fake();
+
+        // Arrange:
+        $thisMonthInSeconds = today()->endOfMonth()->diffInSeconds(today()->startOfMonth()) + 1;
+
+        /* @var \App\Models\Project $project */
+        $project = Project::factory()->usePersianDatetimeForStatistic()->create();
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->startMonth())->subDay()->hours(22),
+            'end_at' => verta_to_carbon(verta()->startMonth())->hours(1)
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(today()->toJalali())->hours(9),
+            'end_at' => verta_to_carbon(today()->toJalali())->hours(10)
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->endMonth())->setTimeFromTimeString('22:00'),
+            'end_at' => verta_to_carbon(verta()->endMonth())->addDay()->setTimeFromTimeString('01:00')
+        ]);
+        $project->times()->create([
+            'start_at' => verta_to_carbon(verta()->startMonth())->subDay()->hours(10),
+            'end_at' => verta_to_carbon(verta()->endMonth())->addDay()->setTimeFromTimeString('10:00')
+        ]);
+
+        // Act:
+        $thisMonthWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::MONTH);
+
+        // Assert:
+        $this->assertEquals(sum_times($thisMonthInSeconds, '04:00'), $thisMonthWorkTime);
+
+        // Stop Faking:
+        Project::stopFaking();
+        Time::stopFaking();
+    }
+
+    public function test_all_work_times_in_persian_datetime(): void
+    {
+        // Start Faking:
+        Project::fake();
+        Time::fake();
+
+        // Arrange:
+        /* @var \App\Models\Project $project */
+        $project = Project::factory()->usePersianDatetimeForStatistic()->create();
+        $project->times()->create(['start_at' => '2022-10-10 10:00:00', 'end_at' => '2022-10-10 12:00:00']);
+        $project->times()->create(['start_at' => '2022-10-11 22:00:00', 'end_at' => '2022-10-12 02:00:00']);
+        $project->times()->create(['start_at' => '2022-10-10 10:00:00', 'end_at' => '2022-10-12 12:00:00']);
+
+        // Act:
+        $allWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::ALL);
+
+        // Assert:
+        $this->assertEquals('56:00', $allWorkTime);
+
+        // Stop Faking:
+        Project::stopFaking();
+        Time::stopFaking();
+    }
 }

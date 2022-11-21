@@ -3,6 +3,7 @@
     import { format, datetimeFormat } from '~js/format';
     import { modalStore } from '~store/modal-store';
     import ModalForm from '~component/modal/modal-form';
+    import Alert from '~component/alert';
 
     export let type; // create or update
 
@@ -14,15 +15,26 @@
             ? $modalStore.model.end_at
             : null
     });
+
+    let placeholder = _app.lang === 'fa'
+        ? 'مثال: 00:00 01-01-1401'
+        : 'ex: 2022-01-01 00:00';
 </script>
 
 <ModalForm {type} {form}>
+    {#if _app.lang === 'fa'}
+        <Alert type="primary" id="date-description" showDismissButton={false}>
+            <span>تاریخ و ساعت را میتوانید بصورت شمسی یا میلادی وارد کنید.</span>
+            <br>
+            <span>مثال: 00:00 01-01-1401 یا 00:00 01-01-2022</span>
+        </Alert>
+    {/if}
     <div class="form-group relative" class:invalid={$form.errors.start_at}>
         <label for="start_at" class="form-label">{__('Start At')}</label>
         <input dir="ltr" id="start_at" class="form-input" type="text"
                use:format={datetimeFormat}
                bind:value={$form.start_at}
-               placeholder="YYYY-MM-DD HH:mm"
+               {placeholder}
         />
         {#if $form.errors.start_at}
             <div class="form-error">{$form.errors.start_at}</div>
@@ -39,7 +51,7 @@
         <input dir="ltr" id="end_at" class="form-input" type="text"
                use:format={datetimeFormat}
                bind:value={$form.end_at}
-               placeholder="YYYY-MM-DD HH:mm"
+               {placeholder}
         />
         {#if $form.errors.end_at}
             <div class="form-error">{$form.errors.end_at}</div>

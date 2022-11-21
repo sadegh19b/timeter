@@ -59,7 +59,11 @@ trait InteractsWithValidation
             );
         }
 
-        if (!is_null($field) && $validator->fails() && !array_key_exists($field, $validator->failed())) {
+        if (
+            !is_null($field) &&
+            !is_null($rule) &&
+            !$this->isExpectedRuleForFieldInFailedRules($data, $rules, $field, $rule)
+        ) {
             return true;
         }
 
@@ -114,6 +118,15 @@ trait InteractsWithValidation
         }
 
         return $result;
+    }
+
+    private function isExpectedRuleForFieldInFailedRules(array $data, array $rules, string $field, string $rule): bool
+    {
+        $validator = Validator::make($data, $rules);
+
+        return $validator->fails() &&
+            isset($validator->failed()[$field]) &&
+            in_array($rule, $this->normalizeValidationRules($validator->failed()[$field]), true);
     }
 
     private function baseNameOfValidationRules(array $rules): array

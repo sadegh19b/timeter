@@ -15,7 +15,12 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'pay_per_hour'
+        'pay_per_hour',
+        'use_persian_datetime_in_statistic'
+    ];
+
+    protected $casts = [
+        'use_persian_datetime_in_statistic' => 'boolean'
     ];
 
     public function times(): HasMany

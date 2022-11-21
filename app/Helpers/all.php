@@ -9,6 +9,23 @@ if (!function_exists('persian_date')) {
     }
 }
 
+if (!function_exists('persian_to_georgian_datetime')) {
+    function persian_to_georgian_datetime(string $persian_date, string $format = 'Y-m-d H:i:s'): string
+    {
+        return Verta::parse($persian_date)
+            ->datetime()
+            ->setTimezone(new \Carbon\CarbonTimeZone('Asia/Tehran'))
+            ->format($format);
+    }
+}
+
+if (!function_exists('verta_to_carbon')) {
+    function verta_to_carbon(\Hekmatinasser\Verta\Verta $verta): \Illuminate\Support\Carbon
+    {
+        return now()->timestamp($verta->timestamp);
+    }
+}
+
 if (!function_exists('timestamp_to_hours_minutes')) {
     function timestamp_to_hours_minutes(int $timestamp): string
     {

@@ -11,7 +11,7 @@
     >
         <div class="text-center space-x-2 space-x-reverse">
             <button class="btn-light" on:click={modalStore.closeAction}>{__('Cancel')}</button>
-            <button class="btn-red" on:click={modalStore.confirmAction}>{__('Yes, Delete it!')}</button>
+            <button class="btn-danger" on:click={modalStore.confirmAction}>{__('Yes, Delete it!')}</button>
         </div>
     </Modal>
 {/if}
