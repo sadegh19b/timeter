@@ -22,6 +22,18 @@ export const numberFormat = value => {
     return value.replace(/\D\./g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
+export const currencyNumberFormat = value => {
+    let number = value.replace(/[^0-9.]/g, '');
+
+    if (number[number.length - 1] === '.') {
+        return number;
+    }
+
+    number = parseFloat(number);
+
+    return !isNaN(number) ? number.toLocaleString('en', {maximumFractionDigits: 2}) : '';
+}
+
 export const datetimeFormat = value => {
     if (value.length > 16) {
         return value.slice(0, 16);
@@ -173,3 +185,4 @@ export const datetimeFormat = value => {
 }
 
 const isInteger = num => /^[0-9]+$/.test(num+'');
+const isFloat = num => /^[0-9.]+$/.test(num+'');

@@ -1,6 +1,6 @@
 <script>
     import { useForm } from '@inertiajs/inertia-svelte';
-    import { format, numberFormat } from '~js/format';
+    import { format, currencyNumberFormat } from '~js/format';
     import { modalStore } from '~store/modal-store';
     import ModalForm from '~component/modal/modal-form';
     import Toggle from '~component/toggle';
@@ -33,7 +33,7 @@
     </div>
     <div class="form-group" class:invalid={$form.errors.hourly_wage}>
         <label for="hourly_wage" class="form-label">{__('Hourly Wage')} ({__('Optional')})</label>
-        <input id="hourly_wage" class="form-input" use:format={numberFormat} bind:value={$form.hourly_wage}/>
+        <input id="hourly_wage" class="form-input" use:format={currencyNumberFormat} bind:value={$form.hourly_wage}/>
         {#if $form.errors.hourly_wage}
             <div class="form-error">{$form.errors.hourly_wage}</div>
         {/if}
