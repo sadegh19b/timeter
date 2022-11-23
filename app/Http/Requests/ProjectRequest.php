@@ -11,7 +11,7 @@ class ProjectRequest extends FormRequest
         return [
             'name' => ['required', 'min:2', 'max:120'],
             'description' => ['nullable', 'min:5'],
-            'pay_per_hour' => ['nullable', 'numeric', 'min:1', 'max:100000000'],
+            'hourly_wage' => ['nullable', 'numeric', 'min:1', 'max:100000000'],
             'use_persian_datetime_in_statistic' => ['boolean']
         ];
     }
@@ -21,27 +21,27 @@ class ProjectRequest extends FormRequest
         return [
             'name' => __('Project Name'),
             'description' => __('Project Description'),
-            'pay_per_hour' => __('Pay Per Hour')
+            'hourly_wage' => __('Hourly Wage')
         ];
     }
 
     public function messages(): array
     {
         return [
-            'pay_per_hour.max' => __('Pay Per Hour can be a maximum of one hundred million.'),
+            'hourly_wage.max' => __('Hourly wage can be a maximum of one hundred million.'),
         ];
     }
 
     protected function prepareForValidation(): void
     {
-        $this->cleanPayPerHour();
+        $this->cleanHourlyWage();
     }
 
-    private function cleanPayPerHour(): void
+    private function cleanHourlyWage(): void
     {
-        if ($this->request->has('pay_per_hour') && !empty($this->request->get('pay_per_hour'))) {
+        if ($this->request->has('hourly_wage') && !empty($this->request->get('hourly_wage'))) {
             $this->merge([
-                'pay_per_hour' => str_replace(',', '', $this->request->get('pay_per_hour'))
+                'hourly_wage' => str_replace(',', '', $this->request->get('hourly_wage'))
             ]);
         }
     }

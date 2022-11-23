@@ -18,8 +18,8 @@ export const format = (node, formatFunction) => {
 }
 
 export const numberFormat = value => {
-    // format number 1000000 to 1,234,567
-    return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    // format number 1000000 to 1,234,567 and accept `.` for ex 1.50
+    return value.replace(/\D\./g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
 export const datetimeFormat = value => {

@@ -11,7 +11,7 @@ class ProjectFactory extends Factory
         return [
             'name' => $this->faker->domainWord(),
             'description' => null,
-            'pay_per_hour' => null,
+            'hourly_wage' => null,
             'use_persian_datetime_in_statistic' => false
         ];
     }
@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
     {
         return $this->state(fn(array $attributes) => [
             'description' => $this->faker->text(),
-            'pay_per_hour' => $this->faker->numerify('###000')
+            'hourly_wage' => $this->faker->numerify('###000')
         ]);
     }
 

@@ -19,7 +19,8 @@ class ProjectControllerTest extends TestCase
         $this->requestData = Project::factory()->fulfil()->make()->toArray();
     }
 
-    public function test_user_can_store_a_new_project(): void
+    /** @test */
+    public function user_can_store_a_new_project(): void
     {
         $this->post(route('projects.store'), $this->requestData)
             ->assertOk();
@@ -28,10 +29,11 @@ class ProjectControllerTest extends TestCase
         $this->assertDatabaseCount('projects', 1);
     }
 
-    public function test_user_can_store_a_new_project_without_description_and_pay_per_hour_filled(): void
+    /** @test */
+    public function user_can_store_a_new_project_without_description_and_hourly_wage_filled(): void
     {
         $this->requestData['description'] = null;
-        $this->requestData['pay_per_hour'] = null;
+        $this->requestData['hourly_wage'] = null;
 
         $this->post(route('projects.store'), $this->requestData)
             ->assertOk();
@@ -40,7 +42,8 @@ class ProjectControllerTest extends TestCase
         $this->assertDatabaseCount('projects', 1);
     }
 
-    public function test_user_can_update_a_project(): void
+    /** @test */
+    public function user_can_update_a_project(): void
     {
         $project = Project::factory()->create();
 
@@ -50,11 +53,12 @@ class ProjectControllerTest extends TestCase
         $this->assertDatabaseHas('projects', $this->requestData + ['id' => $project->id]);
     }
 
-    public function test_user_can_update_a_project_without_description_and_pay_per_hour_filled(): void
+    /** @test */
+    public function user_can_update_a_project_without_description_and_hourly_wage_filled(): void
     {
         $project = Project::factory()->create();
         $this->requestData['description'] = null;
-        $this->requestData['pay_per_hour'] = null;
+        $this->requestData['hourly_wage'] = null;
 
         $this->put(route('projects.update', $project), $this->requestData)
             ->assertOk();
@@ -62,7 +66,8 @@ class ProjectControllerTest extends TestCase
         $this->assertDatabaseHas('projects', $this->requestData + ['id' => $project->id]);
     }
 
-    public function test_user_can_destroy_a_project(): void
+    /** @test */
+    public function user_can_destroy_a_project(): void
     {
         $project = Project::factory()->create();
 
@@ -79,7 +84,8 @@ class ProjectControllerTest extends TestCase
         $this->assertModelMissing($project);
     }
 
-    public function test_user_can_restore_a_soft_deleted_project(): void
+    /** @test */
+    public function user_can_restore_a_soft_deleted_project(): void
     {
         $project = Project::factory()->create(['deleted_at' => now()]);
 

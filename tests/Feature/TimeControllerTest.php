@@ -23,7 +23,8 @@ class TimeControllerTest extends TestCase
         ];
     }
 
-    public function test_user_can_store_a_new_time_for_project(): void
+    /** @test */
+    public function user_can_store_a_new_time_for_project(): void
     {
         $project = Project::factory()->create();
 
@@ -36,7 +37,8 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseCount('times', 1);
     }
 
-    public function test_user_can_store_a_new_time_for_project_without_end_at_filled(): void
+    /** @test */
+    public function user_can_store_a_new_time_for_project_without_end_at_filled(): void
     {
         $project = Project::factory()->create();
         $this->requestData['end_at'] = null;
@@ -50,7 +52,8 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseCount('times', 1);
     }
 
-    public function test_user_can_store_a_new_time_for_project_in_persian_date_format(): void
+    /** @test */
+    public function user_can_store_a_new_time_for_project_in_persian_date_format(): void
     {
         $project = Project::factory()->create();
         $requestData = [
@@ -67,7 +70,8 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseCount('times', 1);
     }
 
-    public function test_user_can_update_a_time(): void
+    /** @test */
+    public function user_can_update_a_time(): void
     {
         $time = Time::factory()->fulfil()->create();
 
@@ -79,7 +83,8 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseHas('times', $this->requestData + ['id' => $time->id]);
     }
 
-    public function test_user_can_update_a_time_without_end_at_filled(): void
+    /** @test */
+    public function user_can_update_a_time_without_end_at_filled(): void
     {
         $time = Time::factory()->fulfil()->create();
         $this->requestData['end_at'] = null;
@@ -92,7 +97,8 @@ class TimeControllerTest extends TestCase
         $this->assertDatabaseHas('times', $this->requestData + ['id' => $time->id]);
     }
 
-    public function test_user_can_destroy_a_time(): void
+    /** @test */
+    public function user_can_destroy_a_time(): void
     {
         $time = Time::factory()->create();
 
@@ -109,7 +115,8 @@ class TimeControllerTest extends TestCase
         $this->assertModelMissing($time);
     }
 
-    public function test_user_can_restore_a_soft_deleted_time(): void
+    /** @test */
+    public function user_can_restore_a_soft_deleted_time(): void
     {
         $time = Time::factory()->create(['deleted_at' => now()]);
 

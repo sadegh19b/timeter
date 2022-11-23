@@ -11,8 +11,8 @@
         name: (type === 'update')
             ? $modalStore.model.name
             : null,
-        pay_per_hour: (type === 'update')
-            ? $modalStore.model.pay_per_hour
+        hourly_wage: (type === 'update')
+            ? $modalStore.model.hourly_wage
             : null,
         use_persian_datetime_in_statistic: (type === 'update')
             ? $modalStore.model.use_persian_datetime_in_statistic
@@ -31,11 +31,11 @@
             <div class="form-error">{$form.errors.name}</div>
         {/if}
     </div>
-    <div class="form-group" class:invalid={$form.errors.pay_per_hour}>
-        <label for="pay_per_hour" class="form-label">{__('Pay Per Hour')} ({__('Optional')})</label>
-        <input id="pay_per_hour" class="form-input" use:format={numberFormat} bind:value={$form.pay_per_hour}/>
-        {#if $form.errors.pay_per_hour}
-            <div class="form-error">{$form.errors.pay_per_hour}</div>
+    <div class="form-group" class:invalid={$form.errors.hourly_wage}>
+        <label for="hourly_wage" class="form-label">{__('Hourly Wage')} ({__('Optional')})</label>
+        <input id="hourly_wage" class="form-input" use:format={numberFormat} bind:value={$form.hourly_wage}/>
+        {#if $form.errors.hourly_wage}
+            <div class="form-error">{$form.errors.hourly_wage}</div>
         {/if}
     </div>
     <div class="form-group" class:invalid={$form.errors.description}>

@@ -15,7 +15,7 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'pay_per_hour',
+        'hourly_wage',
         'use_persian_datetime_in_statistic'
     ];
 

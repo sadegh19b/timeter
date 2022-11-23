@@ -16,7 +16,8 @@ class ProjectValidationTest extends TestCase
     /*
      * 'name' => ['required', 'string', 'min:2', 'max:120'],
      * 'description' => ['nullable', 'string', 'min:5'],
-     * 'pay_per_hour' => ['nullable', 'numeric', 'min:1', 'max:100000000']
+     * 'hourly_wage' => ['nullable', 'numeric', 'min:1', 'max:100000000']
+     * 'use_persian_datetime_in_statistic' => ['boolean']
      */
     protected FormRequest $formRequest;
     protected array $requestData;
@@ -35,7 +36,7 @@ class ProjectValidationTest extends TestCase
         $this->assertPasses($this->requestData, $this->formRequest);
 
         $this->requestData['description'] = null;
-        $this->requestData['pay_per_hour'] = null;
+        $this->requestData['hourly_wage'] = null;
 
         $this->assertPasses($this->requestData, $this->formRequest);
     }
@@ -73,26 +74,36 @@ class ProjectValidationTest extends TestCase
     }
 
     /** @test */
-    public function pay_per_hour_must_be_numeric(): void
+    public function hourly_wage_must_be_numeric(): void
     {
-        $this->requestData['pay_per_hour'] = 'test';
+        $this->requestData['hourly_wage'] = 'test';
+        $this->assertFail($this->requestData, $this->formRequest, 'hourly_wage', 'numeric');
 
-        $this->assertFail($this->requestData, $this->formRequest, 'pay_per_hour', 'numeric');
+        $this->requestData['hourly_wage'] = '1.5';
+        $this->assertPass($this->requestData, $this->formRequest, 'hourly_wage', 'numeric');
     }
 
     /** @test */
-    public function pay_per_hour_must_be_at_least_one(): void
+    public function hourly_wage_must_be_at_least_one(): void
     {
-        $this->requestData['pay_per_hour'] = '0';
+        $this->requestData['hourly_wage'] = '0';
 
-        $this->assertFail($this->requestData, $this->formRequest, 'pay_per_hour', 'min');
+        $this->assertFail($this->requestData, $this->formRequest, 'hourly_wage', 'min');
     }
 
     /** @test */
-    public function pay_per_hour_must_be_a_maximum_of_one_hundred_million(): void
+    public function hourly_wage_must_be_a_maximum_of_one_hundred_million(): void
     {
-        $this->requestData['pay_per_hour'] = '100000001';
+        $this->requestData['hourly_wage'] = '100000001';
 
-        $this->assertFail($this->requestData, $this->formRequest, 'pay_per_hour', 'max');
+        $this->assertFail($this->requestData, $this->formRequest, 'hourly_wage', 'max');
+    }
+
+    /** @test */
+    public function use_persian_datetime_in_statistic_must_be_boolean(): void
+    {
+        $this->requestData['use_persian_datetime_in_statistic'] = 'test';
+
+        $this->assertFail($this->requestData, $this->formRequest, 'use_persian_datetime_in_statistic', 'boolean');
     }
 }

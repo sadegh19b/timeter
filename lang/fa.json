@@ -17,7 +17,7 @@
     "Project Details": "جزئیات پروژه",
     "Project Name": "نام پروژه",
     "Project Description": "توضیحات پروژه",
-    "Pay Per Hour": "دستمزد ساعتی",
+    "Hourly Wage": "دستمزد ساعتی",
     "Start At": "زمان شروع",
     "End At": "زمان پایان",
     "Add Time": "افزودن زمان",
@@ -35,6 +35,6 @@
     "Are you sure you want to archiving this project ?": "آیا مطمئنید که می\u200Cخواهید پروژه را بایگانی کنید؟",
     "Please note that it cannot be restored after deletion.": "دقت کنید که پس از حذف، امکان بازگردانی وجود ندارد.",
     "After archived the project, you can restore that from archives page.": "پس از بایگانی کردن پروژه، می توانید آن را از صفحه آرشیوها بازیابی کنید.",
-    "Pay Per Hour can be a maximum of one hundred million.": "دستمزد ساعتی حداکثر میتواند یکصد میلیون باشد.",
+    "Hourly wage can be a maximum of one hundred million.": "دستمزد ساعتی حداکثر میتواند یکصد میلیون باشد.",
     "The :attribute must be in the correct date format. ex: 2022-01-01 22:00": ":attribute باید به شکل صحیح وارد شود. مثال: 22:00 01-01-2022"
 }
