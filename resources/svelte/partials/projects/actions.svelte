@@ -6,7 +6,7 @@
     export let model;
 
     const editProjectModal = () => {
-        modalStore.update('project', __('Project'), route('projects.update', model), model);
+        modalStore.update('project', __('Edit') + ' ' + __('Project'), route('projects.update', model), model);
     }
 
     const archivingProjectModal = () => {

@@ -6,7 +6,7 @@
     export let model;
 
     const addTimeModal = () => {
-        modalStore.create('time', __('Time'), route('times.store', model));
+        modalStore.create('time', __('Add Time'), route('times.store', model));
     }
 </script>
 
@@ -18,8 +18,8 @@
         <Actions {model}/>
     </div>
     <div class="card-content">
-        <p class="font-semibold mb-6 text-center">.:: {__('Time spent on the project')} ::.</p>
-        <div class="flex justify-between px-16">
+        <p class="font-semibold text-center">.:: {__('Time spent on the project')} ::.</p>
+        <div class="flex justify-between px-16 my-6">
             <div>
                 <div class="font-semibold">{__('Today')}:</div>
                 <div class="font-semibold">{__('This week')}:</div>
@@ -33,7 +33,12 @@
                 <div>{model.all_work_time}</div>
             </div>
         </div>
-        <p class="text-xs mt-6 text-center opacity-50">{__('Times are calculated in hours:minutes.')}</p>
+        <div class="text-sm text-center opacity-60 space-y-1">
+            <p>{__('Times are calculated in hours:minutes.')}</p>
+            {#if model.use_persian_datetime_in_statistic}
+                <p>برای محاسبه زمان ها از تاریخ شمسی استفاده شده است.</p>
+            {/if}
+        </div>
     </div>
     <div class="card-footer">
         <div class="flex justify-center items-center space-x-6">

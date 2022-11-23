@@ -26,7 +26,7 @@
 </script>
 
 {#if $modalStore && $modalStore.id === `form-${type}-${$modalStore.name}`}
-    <Modal title="{type === 'create' ? __('Create') : __('Edit')} {$modalStore.title}">
+    <Modal title={$modalStore.title}>
         <form class="space-y-6" on:submit|preventDefault={submit}>
             <slot/>
             <button class="btn-primary w-full justify-center" type="submit" disabled={$form.processing}>

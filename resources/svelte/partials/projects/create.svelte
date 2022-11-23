@@ -3,7 +3,7 @@
     import Icon from '~component/icon';
 
     const createProjectModal = () => {
-        modalStore.create('project', __('Project'), route('projects.store'));
+        modalStore.create('project', __('Create') + ' ' + __('Project'), route('projects.store'));
     }
 </script>
 
