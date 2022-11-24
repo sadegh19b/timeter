@@ -26,7 +26,8 @@ class TimeStatisticTest extends TestCase
      * Calculating today time equals to 24 hours
      *
      */
-    public function test_today_work_times(): void
+    /** @test */
+    public function today_work_times(): void
     {
         // Start Faking:
         Project::fake();
@@ -80,7 +81,8 @@ class TimeStatisticTest extends TestCase
      * Calculating current week time equals to 168 hours
      *
      */
-    public function test_this_week_work_times(): void
+    /** @test */
+    public function this_week_work_times(): void
     {
         // Start Faking:
         Project::fake();
@@ -134,7 +136,8 @@ class TimeStatisticTest extends TestCase
      * Calculating current month time equals to a month in hours
      *
      */
-    public function test_this_month_work_times(): void
+    /** @test */
+    public function this_month_work_times(): void
     {
         // Start Faking:
         Project::fake();
@@ -171,7 +174,8 @@ class TimeStatisticTest extends TestCase
         Time::stopFaking();
     }
 
-    public function test_all_work_times(): void
+    /** @test */
+    public function all_work_times(): void
     {
         // Start Faking:
         Project::fake();
@@ -194,7 +198,39 @@ class TimeStatisticTest extends TestCase
         Time::stopFaking();
     }
 
-    public function test_today_work_times_in_persian_datetime(): void
+    /** @test */
+    public function when_the_end_at_is_null_it_should_not_be_calculated(): void
+    {
+        // Start Faking:
+        Project::fake();
+        Time::fake();
+
+        // Arrange:
+        $project = Project::factory()->create();
+        $project->times()->create([
+            'start_at' => today()->hours(9),
+            'end_at' => today()->hours(10)
+        ]);
+        $project->times()->create([
+            'start_at' => today()->hours(9),
+            'end_at' => null
+        ]);
+
+        // Act:
+        $todayWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::TODAY);
+        $allWorkTime = (new ProjectStatisticService())->calculateWorkTime($project, WorkTimeStatisticTypes::ALL);
+
+        // Assert:
+        $this->assertEquals('01:00', $todayWorkTime);
+        $this->assertEquals('01:00', $allWorkTime);
+
+        // Stop Faking:
+        Project::stopFaking();
+        Time::stopFaking();
+    }
+
+    /** @test */
+    public function today_work_times_in_persian_datetime(): void
     {
         // Start Faking:
         Project::fake();
@@ -231,7 +267,8 @@ class TimeStatisticTest extends TestCase
         Time::stopFaking();
     }
 
-    public function test_this_week_work_times_in_persian_datetime(): void
+    /** @test */
+    public function this_week_work_times_in_persian_datetime(): void
     {
         // Start Faking:
         Project::fake();
@@ -268,7 +305,8 @@ class TimeStatisticTest extends TestCase
         Time::stopFaking();
     }
 
-    public function test_this_month_work_times_in_persian_datetime(): void
+    /** @test */
+    public function this_month_work_times_in_persian_datetime(): void
     {
         // Start Faking:
         Project::fake();
@@ -307,7 +345,8 @@ class TimeStatisticTest extends TestCase
         Time::stopFaking();
     }
 
-    public function test_all_work_times_in_persian_datetime(): void
+    /** @test */
+    public function all_work_times_in_persian_datetime(): void
     {
         // Start Faking:
         Project::fake();

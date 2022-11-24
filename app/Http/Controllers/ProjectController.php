@@ -19,6 +19,12 @@ class ProjectController extends Controller
             $item->month_work_time = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::MONTH);
             $item->all_work_time   = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::ALL);
 
+            $active_time = $item->times()->latest()->whereNull('end_at')->first(['id', 'start_at']);
+
+            $item->active_time = $active_time
+                ? ['id' => $active_time->id, 'start_at' => $active_time->start_at->format('Y-m-d H:i')]
+                : null;
+
             return $item;
         });
 

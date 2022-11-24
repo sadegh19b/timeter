@@ -10,11 +10,13 @@
         $form.clearErrors();
         if ($modalStore.url !== '' && $modalStore.urlType === 'post') {
             $form.post($modalStore.url, {
-                onSuccess: page => closeModal()
+                onSuccess: page => closeModal(),
+                preserveScroll: true
             });
         } else if ($modalStore.url !== '' && $modalStore.urlType === 'put') {
             $form.put($modalStore.url, {
-                onSuccess: page => closeModal()
+                onSuccess: page => closeModal(),
+                preserveScroll: true
             });
         }
     }

@@ -3,7 +3,7 @@
         @apply flex relative;
 
         .dropdown-menu {
-            @apply absolute flex flex-col h-fit p-2 -top-1 bottom-0 rounded-lg bg-brand-primary-35 dark:bg-brand-primary-900;
+            @apply absolute z-10 flex flex-col h-fit p-2 -top-1 bottom-0 rounded-lg bg-brand-primary-35 dark:bg-brand-primary-900;
 
             &.right {
                 @apply left-6;

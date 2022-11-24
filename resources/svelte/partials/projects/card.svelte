@@ -1,6 +1,10 @@
 <script>
+    import { onMount } from "svelte";
+    import { Inertia } from "@inertiajs/inertia";
     import { modalStore } from "~store/modal-store";
+    import { timeAndDateHandling } from "~js/timer";
     import Actions from '~partial/projects/actions';
+    import Alert from '~component/alert';
     import Icon from '~component/icon';
 
     export let model;
@@ -8,6 +12,47 @@
     const addTimeModal = () => {
         modalStore.create('time', __('Add Time'), route('times.store', model));
     }
+
+    let elapsedTimeIntervalRef;
+    let startedTimer = !! model.active_time;
+    let elapsedTimeText = "00:00:00";
+
+    const toggleTimer = () => {
+        // Check timer if run before, then stop timer
+        if (startedTimer && typeof elapsedTimeIntervalRef !== "undefined") {
+            startedTimer = false;
+            clearInterval(elapsedTimeIntervalRef);
+            elapsedTimeIntervalRef = undefined;
+
+            Inertia.put(route('times.update', model.active_time), {start_at: model.active_time.start_at, end_at: 'now'}, {preserveScroll: true});
+            return;
+        }
+
+        let _startAtTime;
+
+        if (!startedTimer) {
+            startedTimer = true;
+            _startAtTime = new Date();
+            elapsedTimeText = "00:00:00";
+
+            Inertia.post(route('times.store', model), {start_at: 'now'}, {preserveScroll: true});
+        } else {
+            _startAtTime = new Date(model.active_time.start_at);
+            elapsedTimeText = timeAndDateHandling.getElapsedTime(_startAtTime);
+        }
+
+        elapsedTimeIntervalRef = setInterval(() => {
+            elapsedTimeText = timeAndDateHandling.getElapsedTime(_startAtTime);
+
+            // Todo Improvement: Can Stop elapsed time and reset when a maximum elapsed time
+        }, 1000);
+    }
+
+    onMount(() => {
+        if (startedTimer) {
+            toggleTimer();
+        }
+    });
 </script>
 
 <div class="card">
@@ -19,6 +64,12 @@
     </div>
     <div class="card-content">
         <p class="font-semibold text-center">.:: {__('Time spent on the project')} ::.</p>
+        <div class="text-sm text-center opacity-60 space-y-1 mt-2">
+            <p>{__('Times are calculated in hours:minutes.')}</p>
+            {#if model.use_persian_datetime_in_statistic}
+                <p>برای محاسبه زمان ها از تاریخ شمسی استفاده شده است.</p>
+            {/if}
+        </div>
         <div class="flex justify-between px-16 my-6">
             <div>
                 <div class="font-semibold">{__('Today')}:</div>
@@ -33,11 +84,9 @@
                 <div>{model.all_work_time}</div>
             </div>
         </div>
-        <div class="text-sm text-center opacity-60 space-y-1">
-            <p>{__('Times are calculated in hours:minutes.')}</p>
-            {#if model.use_persian_datetime_in_statistic}
-                <p>برای محاسبه زمان ها از تاریخ شمسی استفاده شده است.</p>
-            {/if}
+        <div class="text-center font-semibold transition-all ease-in-out duration-500 {startedTimer ? 'opacity-100' : 'opacity-10'}">
+            <div class="text-lg mb-1">زمان فعال:</div>
+            <div class="text-xl tracking-widest">{elapsedTimeText}</div>
         </div>
     </div>
     <div class="card-footer">
@@ -46,9 +95,13 @@
                 <Icon name="add-time"/>
                 {__('Add Time')}
             </button>
-            <button class="btn-success">
-                <Icon name="timer"/>
-                {__('Start Timer')}
+            <button class={startedTimer ? 'btn-danger' : 'btn-success'} on:click={toggleTimer}>
+                <Icon name={startedTimer ? 'timer-off' : 'timer'}/>
+                {#if startedTimer}
+                    <span>{__('Stop Timer')}</span>
+                {:else}
+                    <span>{__('Start Timer')}</span>
+                {/if}
             </button>
         </div>
     </div>

@@ -34,6 +34,7 @@ export const currencyNumberFormat = value => {
     return !isNaN(number) ? number.toLocaleString('en', {maximumFractionDigits: 2}) : '';
 }
 
+// Todo: use better datetime format
 export const datetimeFormat = value => {
     if (value.length > 16) {
         return value.slice(0, 16);

@@ -15,7 +15,9 @@ class ProjectStatisticService
         $totalDuration = 0;
 
         $times = ($type === WorkTimeStatisticTypes::ALL)
-            ? $project->times
+            ? $project->times()
+                ->whereNotNull('end_at')
+                ->get()
             : $project->times()
                 ->whereBetween('start_at', [
                     $this->startOfUnitDate($dateUnit, $isPersianDatetime)->subDay(),
@@ -25,6 +27,7 @@ class ProjectStatisticService
                     $this->startOfUnitDate($dateUnit, $isPersianDatetime),
                     $this->endOfUnitDate($dateUnit, $isPersianDatetime)->addDay(),
                 ])
+                ->whereNotNull('end_at')
                 ->get();
 
         foreach ($times as $time) {

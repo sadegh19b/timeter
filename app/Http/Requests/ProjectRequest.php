@@ -39,9 +39,9 @@ class ProjectRequest extends FormRequest
 
     private function cleanHourlyWage(): void
     {
-        if ($this->request->has('hourly_wage') && !empty($this->request->get('hourly_wage'))) {
+        if ($this->has('hourly_wage') && !$this->isEmptyString('hourly_wage')) {
             $this->merge([
-                'hourly_wage' => str_replace(',', '', $this->request->get('hourly_wage'))
+                'hourly_wage' => str_replace(',', '', $this->get('hourly_wage'))
             ]);
         }
     }

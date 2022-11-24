@@ -95,19 +95,19 @@ const store = () => {
                 if (modal.url !== '') {
                     switch (modal.urlType) {
                         case 'get':
-                            Inertia.get(modal.url, {data: modal.urlData});
+                            Inertia.get(modal.url, {data: modal.urlData}, {preserveScroll: true});
                             break;
                         case 'post':
-                            Inertia.post(modal.url, {data: modal.urlData});
+                            Inertia.post(modal.url, {data: modal.urlData}, {preserveScroll: true});
                             break;
                         case 'put':
-                            Inertia.put(modal.url, {data: modal.urlData});
+                            Inertia.put(modal.url, {data: modal.urlData}, {preserveScroll: true});
                             break;
                         case 'patch':
-                            Inertia.patch(modal.url, {data: modal.urlData});
+                            Inertia.patch(modal.url, {data: modal.urlData}, {preserveScroll: true});
                             break;
                         case 'delete':
-                            Inertia.delete(modal.url, {data: modal.urlData});
+                            Inertia.delete(modal.url, {data: modal.urlData, preserveScroll: true});
                             break;
                         default:
                             console.error('modal urlType is wrong!');

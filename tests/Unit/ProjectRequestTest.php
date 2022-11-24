@@ -1,17 +1,16 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\InteractsWithValidation;
 use Tests\TestCase;
 
-class ProjectValidationTest extends TestCase
+class ProjectRequestTest extends TestCase
 {
-    use RefreshDatabase, InteractsWithValidation;
+    use InteractsWithValidation;
 
     /*
      * 'name' => ['required', 'string', 'min:2', 'max:120'],
@@ -105,5 +104,15 @@ class ProjectValidationTest extends TestCase
         $this->requestData['use_persian_datetime_in_statistic'] = 'test';
 
         $this->assertFail($this->requestData, $this->formRequest, 'use_persian_datetime_in_statistic', 'boolean');
+    }
+
+    /** @test */
+    public function the_hourly_wage_separated_by_comma_should_be_modified_without_comma(): void
+    {
+        $this->requestData['hourly_wage'] = '123,456';
+        $this->formRequest->merge($this->requestData);
+        $this->invokeMethod($this->formRequest, 'prepareForValidation');
+
+        $this->assertEquals('123456', $this->formRequest->get('hourly_wage'));
     }
 }

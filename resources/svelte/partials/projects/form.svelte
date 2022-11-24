@@ -47,7 +47,7 @@
     </div>
     {#if _app.lang === 'fa'}
         <div class="form-group" class:invalid={$form.errors.use_persian_datetime_in_statistic}>
-            <Toggle type="primary" bind:value={$form.use_persian_datetime_in_statistic} label="برای محسابه زمان های صرف شده در پروژه از تاریخ شمسی استفاده شود."/>
+            <Toggle type="primary" bind:value={$form.use_persian_datetime_in_statistic} label="برای محاسبه زمان های صرف شده در پروژه از تاریخ شمسی استفاده شود."/>
             {#if $form.errors.use_persian_datetime_in_statistic}
                 <div class="form-error">{$form.errors.use_persian_datetime_in_statistic}</div>
             {/if}

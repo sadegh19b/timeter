@@ -34,22 +34,61 @@ class TimeRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->convertPersianToGeorgianDatetime();
+        $this->convertNowToDatetime();
     }
 
     private function convertPersianToGeorgianDatetime(): void
     {
         if (config('app.locale') === 'fa') {
-            if (Str::startsWith($this->request->get('start_at'), '1')) {
+            if (Str::startsWith($this->get('start_at'), ['13', '14'])) {
                 $this->merge([
-                    'start_at' => persian_to_georgian_datetime($this->request->get('start_at'), 'Y-m-d H:i')
+                    'start_at' => persian_to_georgian_datetime($this->get('start_at'), 'Y-m-d H:i')
                 ]);
             }
 
-            if (Str::startsWith($this->request->get('end_at'), '1')) {
+            if (Str::startsWith($this->get('end_at'), ['13', '14'])) {
                 $this->merge([
-                    'end_at' => persian_to_georgian_datetime($this->request->get('end_at'), 'Y-m-d H:i')
+                    'end_at' => persian_to_georgian_datetime($this->get('end_at'), 'Y-m-d H:i')
                 ]);
             }
+        }
+    }
+
+    private function convertNowToDatetime(): void
+    {
+        $nowDateTime = now()->format('Y-m-d H:i');
+
+        if ($this->get('start_at') === 'now' && $this->get('end_at') === 'now') {
+            $this->merge([
+                'start_at' => $nowDateTime,
+                'end_at' => now()->addMinute()->format('Y-m-d H:i')
+            ]);
+
+            return;
+        }
+
+        if (
+            $this->get('end_at') === 'now' &&
+            $this->get('start_at') !== 'now' &&
+            $this->get('start_at') === $nowDateTime
+        ) {
+            $this->merge([
+                'end_at' => now()->addMinute()->format('Y-m-d H:i')
+            ]);
+
+            return;
+        }
+
+        if ($this->get('start_at') === 'now') {
+            $this->merge([
+                'start_at' => $nowDateTime
+            ]);
+        }
+
+        if ($this->get('end_at') === 'now') {
+            $this->merge([
+                'end_at' => $nowDateTime
+            ]);
         }
     }
 
