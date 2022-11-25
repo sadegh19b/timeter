@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum WorkTimeStatisticTypes: string
+enum WorkStatisticTypes: string
 {
     case ALL = 'all';
     case TODAY = 'day';

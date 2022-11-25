@@ -36,6 +36,20 @@ if (!function_exists('timestamp_to_hours_minutes')) {
     }
 }
 
+if (!function_exists('timestamp_to_minutes')) {
+    function timestamp_to_minutes(int $timestamp): int
+    {
+        return floor($timestamp / 60);
+    }
+}
+
+if (!function_exists('hours_minutes_to_minutes')) {
+    function hours_minutes_to_minutes(string $time): int
+    {
+        return timestamp_to_minutes(hours_minutes_to_timestamp($time));
+    }
+}
+
 if (!function_exists('hours_minutes_to_timestamp')) {
     function hours_minutes_to_timestamp(string $time): int
     {
@@ -62,5 +76,12 @@ if (!function_exists('sum_times')) {
         return timestamp_to_hours_minutes(
             hours_minutes_to_timestamp($timeA) + hours_minutes_to_timestamp($timeB)
         );
+    }
+}
+
+if (!function_exists('clean_number_format')) {
+    function clean_number_format(float $number): string
+    {
+        return str_replace('.00', '', number_format($number, 2));
     }
 }

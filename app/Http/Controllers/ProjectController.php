@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\WorkTimeStatisticTypes;
+use App\Enums\WorkStatisticTypes;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Services\ProjectStatisticService;
@@ -10,20 +10,18 @@ use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
-    public function index(): \Inertia\Response
+    public function index(ProjectStatisticService $statisticService): \Inertia\Response
     {
-        $statisticService = new ProjectStatisticService();
         $projects = Project::get()->map(function ($item) use ($statisticService) {
-            $item->today_work_time = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::TODAY);
-            $item->week_work_time  = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::WEEK);
-            $item->month_work_time = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::MONTH);
-            $item->all_work_time   = $statisticService->calculateWorkTime($item, WorkTimeStatisticTypes::ALL);
-
-            $active_time = $item->times()->latest()->whereNull('end_at')->first(['id', 'start_at']);
-
-            $item->active_time = $active_time
-                ? ['id' => $active_time->id, 'start_at' => $active_time->start_at->format('Y-m-d H:i')]
-                : null;
+            $item->work_time = $statisticService->getAllWorkTimes($item);
+            $item->work_wage = array_map(fn($item) => clean_number_format($item), $statisticService->getAllWorkWages($item));
+            $item->active_time = $item->times()
+                ->latest()
+                ->whereNull('end_at')
+                ->take(1)
+                ->get(['id', 'start_at'])
+                ->each(fn ($row) => $row->start_at_formatted = $row->start_at->format('Y-m-d H:i'))
+                ->first();
 
             return $item;
         });

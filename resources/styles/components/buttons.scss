@@ -11,6 +11,9 @@
     .btn-base-duotone {
         @apply btn-base text-white bg-gradient-to-br bg-size-200 bg-pos-0 hover:bg-pos-100;
     }
+    .btn-base-group-item {
+        @apply inline-flex items-center py-2 px-3 text-sm font-semibold text-center transition-all duration-500 focus:ring-0 focus:outline-none;
+    }
 
     .btn-dark {
         @apply btn-base-solid bg-gray-800 hover:bg-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:border dark:border-gray-600;
@@ -75,11 +78,91 @@
         @apply btn-base-duotone text-gray-900 from-red-300 via-yellow-200 to-red-300 bg-gradient-to-r;
     }
 
+    .btn-group {
+        @apply inline-flex;
+
+        &.primary {
+            .btn-item {
+                @apply bg-blue-300 hover:bg-blue-400 dark:bg-blue-400 dark:hover:bg-blue-500;
+
+                &.active {
+                    @apply bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700;
+                }
+            }
+        }
+
+        &.success {
+            .btn-item {
+                @apply bg-green-300 hover:bg-green-400 dark:bg-green-400 dark:hover:bg-green-500;
+
+                &.active {
+                    @apply bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700;
+                }
+            }
+        }
+
+        &.danger {
+            .btn-item {
+                @apply bg-red-300 hover:bg-red-400 dark:bg-red-400 dark:hover:bg-red-500;
+
+                &.active {
+                    @apply bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700;
+                }
+            }
+        }
+
+        &.warning {
+            .btn-item {
+                @apply text-brand-primary-900 bg-yellow-200 hover:bg-yellow-300 dark:bg-yellow-300 dark:hover:bg-yellow-400;
+
+                &.active {
+                    @apply bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-500 dark:hover:bg-yellow-600;
+                }
+            }
+        }
+
+        &.purple {
+            .btn-item {
+                @apply bg-purple-300 hover:bg-purple-400 dark:bg-purple-400 dark:hover:bg-purple-500;
+
+                &.active {
+                    @apply bg-purple-600 hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-700;
+                }
+            }
+        }
+
+        .btn-item {
+            @apply btn-base-group-item text-white;
+
+            &:first-child,
+            &:first-child.active {
+                @apply rounded-l-lg;
+            }
+
+            &:last-child,
+            &:last-child.active {
+                @apply rounded-r-lg;
+            }
+        }
+    }
+
     [class*="btn-"] svg {
         @apply mr-1 -ml-1;
     }
     html[dir='rtl'] [class*="btn-"] svg {
         @apply ml-1 -mr-1;
+    }
+
+    html[dir='rtl'] .btn-item {
+        &:first-child,
+        &:first-child.active {
+            @apply rounded-l-none rounded-r-lg;
+        }
+
+        &:last-child,
+        &:last-child.active {
+            @apply rounded-r-none rounded-l-lg;
+        }
     }
 
     [class*="btn-"]:disabled {
