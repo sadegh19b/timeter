@@ -2,6 +2,23 @@
 
 Timeter is a small utility app to keep track of your time. It has a minimalistic features set required and sleek design. It is an ideal tool for a workplace that does not provide you with an automated way of knowing at which time you arrived and left the office. Stop opening, closing your local text editor for persisting and calculating the timesheet and hours manually. Start using Timeter now.
 
+## Requirements
+
+- [PHP](https://www.php.net/downloads) 8.1 or higher
+- Database (eg: MySQL, PostgreSQL, SQLite)
+- Web Server (eg: Apache, Nginx, IIS or use [Laragon](https://laragon.org/download/index.html))
+- [Composer](https://getcomposer.org/download)
+- [Node.js](http://nodejs.org)
+
+## Features
+
+- You can create multiple projects
+- You can set the hourly wage of the project
+- You can add the time spent manually (start at datetime and end at datetime)
+- You can use the timer to track the time spent on the project
+- Display the times calculated in the project (today, week, month, all)
+- Display the earned wages calculated in the project (today, week, month, all)
+
 ## Getting Started
 
 ### Clone the project
@@ -15,12 +32,12 @@ cd timeter
 
 ### Install and Run the project
 
-Install php and node dependencies, and after that you must create the database for run migrations and configure `.env` file.
+Install the node and php dependencies and after that, you need to create the database to run the migrations and configure the `.env` file.
 
 ```shell
-composer install
 npm install
-npm run build 
+npm run build
+composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
@@ -42,16 +59,38 @@ laravelsail/php81-composer:latest \
 composer install --ignore-platform-reqs
 ```
 
-Now, switch to the project directory and run `sail up` command.
+Now, switch to the project directory and run the commands.
 
 ```shell
-cd timeter
+cp .env.example .env => [change] DB_HOST=mysql
 ./vendor/bin/sail up
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate --seed
+```
+
+## Configurations
+
+### Language
+
+The default language is English `en`, and it currently supports English `en` and Persian `fa`. You can change it in the `.env` file.
+
+```shell
+APP_LANG=fa
+```
+
+### Timezone
+
+The default timezone is `UTC`. You can change it in the `.env` file.
+
+```shell
+APP_TIMEZONE=Asia/Tehran
 ```
 
 ## Testing
 
-Run tests of the project by following the below command:
+Run the project tests by following the command below:
 
 ```shell
 php artisan test
@@ -62,3 +101,7 @@ Run tests in docker:
 ```shell
 ./vendor/bin/sail artisan test
 ```
+
+## License
+
+Timeter is open source software released under the MIT license. See [LICENSE](LICENSE) for more information.
