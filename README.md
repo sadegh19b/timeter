@@ -59,11 +59,16 @@ laravelsail/php81-composer:latest \
 composer install --ignore-platform-reqs
 ```
 
-Now, switch to the project directory and run the commands.
+Now, switch to the project directory and run the command below:
 
 ```shell
-cp .env.example .env => [change] DB_HOST=mysql
-./vendor/bin/sail up
+cp .env.example .env
+```
+
+Edit the `.env` file and change `DB_HOST=mysql` and then following the commands.
+
+```shell
+./vendor/bin/sail up -d
 ./vendor/bin/sail npm install
 ./vendor/bin/sail npm run build
 ./vendor/bin/sail artisan key:generate
